@@ -29,8 +29,8 @@
     <!-- Подключаем файл со стилями -->
     <link rel="stylesheet" href="style.css">
 </head>
-    <body>
-        <h1 class="txt">
+<body>
+    <h1 class="txt">
         Заголовок с классом txt
     </h1>
 
