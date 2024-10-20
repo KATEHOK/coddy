@@ -1,36 +1,33 @@
-/* стили для html-элементов с классом body */
 .body {
     background-color: bisque;
 }
 
-/* стили для html-элементов с классом heading */
 .heading {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-h1 {
+.main-heading {
     text-align: center;
     font-size: 56px;
 }
 
-h2 {
+.chapter-heading {
     font-size: 44px;
 }
 
-h3 {
+.sub-heading {
     font-weight: normal;
     font-size: 36px;
 }
 
-p, a {
+.txt, .link {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-a {
+.link {
     font-style: italic;
 }
 
-/* стили для html-элементов с классом dev-info */
 .dev-info {
     text-align: right;
 }
