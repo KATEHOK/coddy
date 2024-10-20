@@ -31,3 +31,12 @@
 .dev-info {
     text-align: right;
 }
+
+.nav {
+    list-style-type: circle;
+    /* list-style-image: ; */
+}
+
+.nav-item {
+    display: block;
+}
