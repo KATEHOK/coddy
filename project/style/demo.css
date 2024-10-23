@@ -1,0 +1,24 @@
+.block {
+    /* Элементы с классом block будут теперь блочными */
+    display: block;
+}
+
+.inline {
+    /* Элементы с классом inline будут теперь строчными */
+    display: inline;
+}
+
+.marker-none {
+    /* Без маркера */
+    list-style-type: none;
+}
+
+.marker-square {
+    /* Маркер - квадрат */
+    list-style-type: square;
+}
+
+.marker-circle {
+    /* Маркер - окружность */
+    list-style-type: circle;
+}
