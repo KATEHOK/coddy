@@ -34,9 +34,4 @@
 
 .nav {
     list-style-type: circle;
-    /* list-style-image: ; */
-}
-
-.nav-item {
-    display: block;
 }
