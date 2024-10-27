@@ -22,3 +22,21 @@
     /* Маркер - окружность */
     list-style-type: circle;
 }
+
+.qwerty {
+    background-color: red;
+    width: 100%;
+    /* max-width: 1920px; */
+    min-width: 500px;
+    /* height: 400px; */
+}
+
+.new-block {
+    background-color: blueviolet;
+    width: 200px;
+    height: 150px;
+    padding: 20px;
+    border: 10px solid black;
+    margin: 30px;
+    box-sizing: border-box;
+}
