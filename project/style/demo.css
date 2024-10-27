@@ -1,34 +1,25 @@
-.block {
+.displays {
     /* Элементы с классом block будут теперь блочными */
     display: block;
-}
-
-.inline {
     /* Элементы с классом inline будут теперь строчными */
     display: inline;
 }
 
-.marker-none {
+.marker {
     /* Без маркера */
     list-style-type: none;
-}
-
-.marker-square {
     /* Маркер - квадрат */
     list-style-type: square;
-}
-
-.marker-circle {
     /* Маркер - окружность */
     list-style-type: circle;
 }
 
+/* 
 .qwerty {
-    background-color: red;
     width: 100%;
-    /* max-width: 1920px; */
+    max-width: 1920px;
     min-width: 500px;
-    /* height: 400px; */
+    height: 400px;
 }
 
 .new-block {
@@ -38,5 +29,159 @@
     padding: 20px;
     border: 10px solid black;
     margin: 30px;
+    box-sizing: border-box;
+} */
+
+.bgc-red {
+    background-color: red;
+    font-size: 32px;
+    /* text-align: center; */
+}
+
+.bgc-green {
+    background-color: green;
+    font-size: 32px;
+    /* text-align: center; */
+}
+
+.bgc-blue {
+    background-color: blue;
+    font-size: 32px;
+    /* text-align: center; */
+}
+
+.bgc-blueviolet {
+    background-color: blueviolet;
+    font-size: 32px;
+    /* text-align: center; */
+}
+
+.container {
+    box-sizing: border-box;
+
+    width: 1080px;
+    height: 720px;
+    border: 5px solid black;
+}
+
+.block-1 {
+    width: 500px;
+    height: 200px;
+}
+
+.block-2 {
+    width: 80%;
+    height: 30%
+}
+
+.block-3 {
+    width: 70vw;
+    height: 10vh;
+}
+
+.block-4 {
+    width: 100%;
+    height: 30%;
+
+    max-width: 500px;
+    min-width: 300px;
+
+    max-height: 100px;
+    min-height: 50px;
+}
+
+.block-5 {
+    width: 100px;
+    height: 100px;
+
+    padding: 5px;
+    border: 2px solid black;
+    margin: 10px;
+}
+
+.block-6 {
+    width: 500px;
+    
+    border: 5px solid black;
+}
+
+.block-7 {
+    width: 500px;
+    
+    border: 10px dashed grey;
+}
+
+.block-8 {
+    width: 500px;
+    
+    border: 15px double lightgreen;
+}
+
+.block-9 {
+    width: 500px;
+    
+    border: 20px ridge lightblue;
+}
+
+hr {
+    margin: 0;
+}
+
+.block-10 {
+    width: 500px;
+    border: 2px solid black;
+
+    /* применяется ко всем сторонам */
+    padding: 10px;
+    margin: 10px;
+}
+
+.block-11 {
+    width: 500px;
+    border: 2px solid black;
+
+    /* первый задает top и bottom */
+    /* второй задает left и right */
+    padding: 50px 10px;
+    margin: 50px 10px;
+}
+
+.block-12 {
+    width: 500px;
+    border: 2px solid black;
+
+    /* первый задает top */
+    /* второй задает left и right */
+    /* третий задает bottom */
+    padding: 10px 50px 30px;
+    margin: 10px 50px 30px;
+}
+
+.block-13 {
+    width: 500px;
+    border: 2px solid black;
+    
+    /* первый задает top */
+    /* второй задает left */
+    /* третий задает bottom */
+    /* четвертый задает left */
+    padding: 10px 50px 30px 0;
+    margin: 10px 50px 30px 0;
+}
+
+.block-14 {
+    width: 500px;
+    border: 10px solid black;
+    padding: 20px;
+
+    /* значение content-box - по умолчанию */
+    /* box-sizing: content-box; */
+}
+
+.block-15 {
+    width: 500px;
+    border: 10px solid black;
+    padding: 20px;
+    
     box-sizing: border-box;
 }
