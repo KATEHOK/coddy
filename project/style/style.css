@@ -11,11 +11,13 @@
 
 .heading {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 10px;
 }
 
 .main-heading {
     text-align: center;
     font-size: 56px;
+    margin-bottom: 20px;
 }
 
 .chapter-heading {
@@ -40,7 +42,6 @@
 }
 
 .header {
-    /* margin: 0 0 20px 0; */
     margin-bottom: 20px;
 }
 
