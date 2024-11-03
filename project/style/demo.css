@@ -5,177 +5,6 @@
     box-sizing: border-box;
 }
 
-
-.displays {
-    /* Элементы с классом block будут теперь блочными */
-    display: block;
-    /* Элементы с классом inline будут теперь строчными */
-    display: inline;
-}
-
-.marker {
-    /* Без маркера */
-    list-style-type: none;
-    /* Маркер - квадрат */
-    list-style-type: square;
-    /* Маркер - окружность */
-    list-style-type: circle;
-}
-
-.bgc-red {
-    background-color: red;
-    font-size: 32px;
-    /* text-align: center; */
-}
-
-.bgc-green {
-    background-color: green;
-    font-size: 32px;
-    /* text-align: center; */
-}
-
-.bgc-blue {
-    background-color: blue;
-    font-size: 32px;
-    /* text-align: center; */
-}
-
-.bgc-blueviolet {
-    background-color: blueviolet;
-    font-size: 32px;
-    /* text-align: center; */
-}
-
-.container {
-    box-sizing: border-box;
-
-    width: 1080px;
-    height: 720px;
-    border: 5px solid black;
-}
-
-.block-1 {
-    width: 500px;
-    height: 200px;
-}
-
-.block-2 {
-    width: 80%;
-    height: 30%
-}
-
-.block-3 {
-    width: 70vw;
-    height: 10vh;
-}
-
-.block-4 {
-    width: 100%;
-    height: 30%;
-
-    max-width: 500px;
-    min-width: 300px;
-
-    max-height: 100px;
-    min-height: 50px;
-}
-
-.block-5 {
-    width: 100px;
-    height: 100px;
-
-    padding: 5px;
-    border: 2px solid black;
-    margin: 10px;
-}
-
-.block-6 {
-    width: 500px;
-    
-    border: 5px solid black;
-}
-
-.block-7 {
-    width: 500px;
-    
-    border: 10px dashed grey;
-}
-
-.block-8 {
-    width: 500px;
-    
-    border: 15px double lightgreen;
-}
-
-.block-9 {
-    width: 500px;
-    
-    border: 20px ridge lightblue;
-}
-
-hr {
-    margin: 0;
-}
-
-.block-10 {
-    width: 500px;
-    border: 2px solid black;
-
-    /* применяется ко всем сторонам */
-    padding: 10px;
-    margin: 10px;
-}
-
-.block-11 {
-    width: 500px;
-    border: 2px solid black;
-
-    /* первый задает top и bottom */
-    /* второй задает left и right */
-    padding: 50px 10px;
-    margin: 50px 10px;
-}
-
-.block-12 {
-    width: 500px;
-    border: 2px solid black;
-
-    /* первый задает top */
-    /* второй задает left и right */
-    /* третий задает bottom */
-    padding: 10px 50px 30px;
-    margin: 10px 50px 30px;
-}
-
-.block-13 {
-    width: 500px;
-    border: 2px solid black;
-    
-    /* первый задает top */
-    /* второй задает left */
-    /* третий задает bottom */
-    /* четвертый задает left */
-    padding: 10px 50px 30px 0;
-    margin: 10px 50px 30px 0;
-}
-
-.block-14 {
-    width: 500px;
-    border: 10px solid black;
-    padding: 20px;
-
-    /* значение content-box - по умолчанию */
-    /* box-sizing: content-box; */
-}
-
-.block-15 {
-    width: 500px;
-    border: 10px solid black;
-    padding: 20px;
-    
-    box-sizing: border-box;
-}
-
 .circle {
     background-color: greenyellow;
     height: 100px;
@@ -204,9 +33,9 @@ hr {
 }
 
 .floats {
-    width: 850px;
-    display: flex;
-    justify-content: space-between;
+    /* width: 850px; */
+    /* display: flex;
+    justify-content: space-between; */
 }
 
 .float {
@@ -235,3 +64,182 @@ hr {
 }
 
 .float-txt {}
+
+.bordered {
+    margin: 10px;
+    border: 1px solid black;
+}
+
+.red-text {
+    color: red;
+}
+.green-text {
+    color: green;
+}
+.blue-text {
+    color: blue;
+}
+
+.float-left {
+    height: 100px;
+    width: 100px;
+    background-color: #ff8d5f;
+
+    float: left;
+}
+.float-right {
+    height: 100px;
+    width: 100px;
+    background-color: aquamarine;
+
+    float: right;
+}
+
+.shadow-1 {
+    text-shadow: 5px 5px;
+}
+.shadow-2 {
+    text-shadow: 5px 5px red;
+}
+.shadow-3 {
+    text-shadow: 5px 5px 5px green;
+}
+.shadow-4 {
+    text-shadow: 5px 5px 5px blue, 7px 7px 7px darkorange;
+}
+
+.line-height-1 {
+    color: red;
+    line-height: normal;
+}
+.line-height-2 {
+    color: green;
+    line-height: 16px;
+}
+.line-height-3 {
+    color: blue;
+    line-height: 300%;
+}
+
+.letter-spacing-1 {
+    color: red;
+    letter-spacing: normal;
+}
+.letter-spacing-2 {
+    color: green;
+    letter-spacing: 5px;
+}
+.letter-spacing-3 {
+    color: blue;
+    letter-spacing: -1px;
+}
+
+.text-transform-1 {
+    color: red;
+    text-transform: none;
+}
+.text-transform-2 {
+    color: green;
+    text-transform: uppercase;
+}
+.text-transform-3 {
+    color: blue;
+    text-transform: lowercase;
+}
+.text-transform-4 {
+    color: black;
+    text-transform: capitalize;
+}
+
+.font-style-1 {
+    font-family: serif;
+    color: red;
+    font-style: normal;
+}
+.font-style-2 {
+    font-family: serif;
+    color: green;
+    font-style: italic;
+}
+
+.font-weight-1 {
+    color: red;
+    font-weight: normal;
+}
+.font-weight-2 {
+    color: green;
+    font-weight: light;
+}
+.font-weight-3 {
+    color: blue;
+    font-weight: bold;
+}
+
+.font-size-1 {
+    color: red;
+    font-size: 16px;
+}
+.font-size-2 {
+    color: green;
+    font-size: 200%;
+}
+.font-size-3 {
+    color: blue;
+    font-size: 1.2rem;
+}
+
+.font-family-1 {
+    color: red;
+    font-family: serif;
+}
+.font-family-2 {
+    color: green;
+    font-family: sans-serif;
+}
+.font-family-3 {
+    color: blue;
+    font-family: cursive;
+}
+.font-family-4 {
+    color: red;
+    font-family: 'Times New Roman', Times, serif;
+}
+.font-family-5 {
+    color: green;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.font-family-6 {
+    color: blue;
+    font-family: "Shadows Into Light", cursive;;
+}
+
+.border-radius-1 {
+    background-color: red;
+    border-radius: 20px;
+}
+.border-radius-2 {
+    background-color: green;
+    border-radius: 20px 10px;
+}
+.border-radius-3 {
+    background-color: blue;
+    border-radius: 20px 10px 15px;
+}
+.border-radius-4 {
+    background-color: red;
+    border-radius: 20px 10px 15px 30px;
+}
+.border-radius-5 {
+    background-color: green;
+    border-radius: 20%;
+}
+.border-radius-6 {
+    background-color: blue;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+.border-radius-7 {
+    background-color: red;
+    border-radius: 50%;
+}
