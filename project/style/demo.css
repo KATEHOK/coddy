@@ -1,3 +1,11 @@
+* {
+    font-family: "Shadows Into Light", cursive;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
 .displays {
     /* Элементы с классом block будут теперь блочными */
     display: block;
@@ -13,24 +21,6 @@
     /* Маркер - окружность */
     list-style-type: circle;
 }
-
-/* 
-.qwerty {
-    width: 100%;
-    max-width: 1920px;
-    min-width: 500px;
-    height: 400px;
-}
-
-.new-block {
-    background-color: blueviolet;
-    width: 200px;
-    height: 150px;
-    padding: 20px;
-    border: 10px solid black;
-    margin: 30px;
-    box-sizing: border-box;
-} */
 
 .bgc-red {
     background-color: red;
@@ -185,3 +175,63 @@ hr {
     
     box-sizing: border-box;
 }
+
+.circle {
+    background-color: greenyellow;
+    height: 100px;
+    width: 100px;
+    /* border-radius: 50px 20px; */
+    /* border-radius: 10% 40%; */
+    /* border-radius: 50%; */
+    border-radius: 10% 20% 30% 40%;
+}
+
+.weight {
+    font-family: serif;
+    font-weight: 100;
+    font-weight: 200;
+    font-weight: 300;
+    font-weight: 400;
+    font-weight: 500;
+    font-weight: 600;
+    font-weight: 700;
+    font-weight: 800;
+    font-weight: 900;
+}
+
+.shadow {
+    text-shadow: 1px 1px 10px red;
+}
+
+.floats {
+    width: 850px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.float {
+    width: 400px;
+    background-color: #ff8d5f;
+    padding: 20px;
+    border: 10px dashed rgb(255, 241, 50);
+    margin-bottom: 20px;
+    border-radius: 50px;
+}
+
+.float-title {
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 44px;
+    text-shadow: 5px 5px 20px rgb(168, 255, 148);
+    text-transform: capitalize;
+    color: darkred;
+}
+
+.float-img {
+    width: 200px;
+    border-radius: 50%;
+    float: left;
+    margin-right: 10px;
+}
+
+.float-txt {}
