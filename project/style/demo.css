@@ -45,6 +45,8 @@
     border: 10px dashed rgb(255, 241, 50);
     margin-bottom: 20px;
     border-radius: 50px;
+
+    /* z-index: 2; */
 }
 
 .float-title {
@@ -54,6 +56,9 @@
     text-shadow: 5px 5px 20px rgb(168, 255, 148);
     text-transform: capitalize;
     color: darkred;
+
+    /* position: absolute;
+    z-index: -1; */
 }
 
 .float-img {
@@ -242,4 +247,13 @@
 .border-radius-7 {
     background-color: red;
     border-radius: 50%;
+}
+
+.bg-image {
+    height: 800px;
+    width: 80%;
+    background-image: url(../img/capibara.jpg);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
 }

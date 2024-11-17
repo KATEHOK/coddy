@@ -43,13 +43,24 @@
 
 .header {
     margin-bottom: 20px;
+    /* position: fixed; */
 }
 
 .nav {
     list-style-type: circle;
-    padding-left: 15px;
+    /* padding-left: 15px; */
+}
+
+.nav-item {
+    display: block;
 }
 
 .main {
     margin-bottom: 20px;
+}
+
+.img-float {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
