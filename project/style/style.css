@@ -33,8 +33,11 @@
 }
 
 .body {
+    min-height: 100vh;
     background-color: bisque;
     padding: 30px;
+    display: flex;
+    flex-direction: column;
 }
 
 .main-container {
@@ -42,6 +45,10 @@
     padding: 20px;
     border-radius: 20px;
     background-color: lightgray;
+}
+
+.main-container:last-child {
+    margin: 0;
 }
 
 /* MAIN HEADER */
@@ -52,15 +59,30 @@
 }
 
 .main-nav {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
 }
 
 .main-nav-item {
-    display: block;
+}
+
+.main-nav-item:hover {
+    color: red;
+}
+
+.main-nav-item:active {
+    color: rgb(0, 94, 255);
+}
+
+.main-nav-item:last-child {
+    margin-bottom: 0;
 }
 
 /* MAIN */
 
 .main {
+    flex-grow: 1;
 }
 
 .img-float {
@@ -72,7 +94,7 @@
 /* MAIN FOOTER */
 
 .main-footer {
-    margin: 0;
+    /* margin: 0; */
 }
 
 .dev-info {
