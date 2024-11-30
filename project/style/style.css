@@ -12,6 +12,18 @@
     font-style: italic;
 }
 
+.link:visited {
+    color: rgb(0, 58, 157);
+}
+
+.link:hover {
+    color: red;
+}
+
+.link:active {
+    color: rgb(0, 26, 71);
+}
+
 .heading {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-bottom: 10px;
@@ -33,11 +45,15 @@
 }
 
 .body {
+    margin: 0 auto;
+    max-width: 1200px;
+    min-width: 800px;
     min-height: 100vh;
     background-color: bisque;
     padding: 30px;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
 }
 
 .main-container {
@@ -67,16 +83,7 @@
 .main-nav-item {
 }
 
-.main-nav-item:hover {
-    color: red;
-}
-
-.main-nav-item:active {
-    color: rgb(0, 94, 255);
-}
-
 .main-nav-item:last-child {
-    margin-bottom: 0;
 }
 
 /* MAIN */
@@ -94,9 +101,8 @@
 /* MAIN FOOTER */
 
 .main-footer {
-    /* margin: 0; */
+    display: flex;
+    justify-content: space-between;
 }
 
-.dev-info {
-    text-align: right;
-}
+.main-footer-item {}
