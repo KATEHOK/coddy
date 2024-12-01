@@ -814,13 +814,43 @@ CSS свойство ё выравнивает flex-элементы текущ�
 
 Пример:
 ```html
-
+<h3>align-self</h3>
+<div class="flex-container">
+    <div class="flex-item flex-start">flex-start</div>
+    <div class="flex-item flex-end">flex-end</div>
+    <div class="flex-item center">center</div>
+    <div class="flex-item stretch">stretch</div>
+</div>
 ```
 ```css
+.flex-container {
+    display: flex;
+    align-items: center; /* Все элементы по умолчанию выравниваются по центру */
+    height: 200px;
+    border: 2px solid #ccc;
+    background-color: #f0f0f0;
+    gap: 10px;
+    padding: 10px;
+}
 
+.flex-item {
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* Индивидуальные стили с align-self */
+.flex-start { align-self: flex-start; }
+.flex-end { align-self: flex-end; }
+.center { align-self: center; }
+.stretch { align-self: stretch;}
 ```
 
-[Здесь]() вы можете увидеть работу этого кода.
+[Здесь](https://jsbin.com/vogasocafi/edit?html,css,output) вы можете увидеть работу этого кода.
 
 #### [flex-grow](https://developer.mozilla.org/ru/docs/Web/CSS/flex-grow)
 
@@ -831,13 +861,46 @@ CSS-свойство `flex-grow` определяет как много своб
 
 Пример:
 ```html
-
+<div class="flex-container">
+    <div class="flex-item item1">1</div>
+    <div class="flex-item item2">2</div>
+    <div class="flex-item item3">3</div>
+    <div class="flex-item item4">Без</div>
+</div>
 ```
 ```css
+.flex-container {
+    display: flex;
+    padding: 20px;
+    border: 2px solid #ccc;
+    background-color: #f9f9f9;
+}
 
+.flex-item {
+    background-color: #007bff;
+    padding: 20px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    height: 100%;
+}
+
+.item1 {
+    flex-grow: 1; /* Займет одну часть свободного пространства */
+    background-color: #ff6f61;
+}
+.item2 {
+    flex-grow: 2; /* Займет две части свободного пространства */
+    background-color: #ffd700;
+}
+.item3 {
+    flex-grow: 3; /* Займет три части свободного пространства */
+    background-color: #4caf50;
+}
 ```
 
-[Здесь]() вы можете увидеть работу этого кода.
+[Здесь](https://jsbin.com/bexonejayo/edit?html,css,output) вы можете увидеть работу этого кода.
 
 ## Домашка
 
