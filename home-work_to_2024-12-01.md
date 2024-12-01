@@ -10,6 +10,46 @@
 
 Псевдоклассы дают возможность стилизовать элемент на основе не только отношений в DOM-дереве, но и основываясь на внешних факторах, таких как история посещений (например, `:visited`), состояние содержимого (вроде `:checked` у некоторых элементов формы) или позиции курсора мыши (например, `:hover` определяет, находится ли курсор мыши над элементом).
 
+Пример:
+```html
+<h2>:hover и :active</h2>
+<button>Наведи и нажми на меня</button>
+
+<h2>:first-child, :last-child и :nth-child()</h2>
+<ul>
+    <li>Первый элемент</li>
+    <li>Второй элемент</li>
+    <li>Последний элемент</li>
+</ul>
+```
+```css
+button:hover {
+  background-color: lightblue;
+  cursor: pointer;
+}
+
+button:active {
+  background-color: darkblue;
+  color: white;
+}
+
+ul li:first-child {
+  font-weight: bold;
+  color: green;
+}
+
+ul li:last-child {
+  font-weight: bold;
+  color: red;
+}
+
+ul li:nth-child(2) {
+  font-style: italic;
+}
+```
+
+[Здесь](https://jsbin.com/gaselayalo/edit?html,css,output) вы можете увидеть работу этого кода.
+
 #### [`:link`](https://developer.mozilla.org/ru/docs/Web/CSS/:link)
 
 CSS псевдокласс `:link` позволяет вам выбирать ссылки внутри элементов. Он выберет любую ссылку, которая ещё не была посещена, даже те, которые уже стилизованы, используя селекторы с другими, относящимися к ссылкам, псевдоклассам типа `:hover`, `:active` или `:visited`. Чтобы стилизовать ссылки должным образом, вам нужно вставлять правила `:link` до других, как определено `LVHA`-порядком: `:link` — `:visited` — `:hover` — `:active`. Псевдо-класс `:focus` обычно размещается прямо перед или сразу после :hover, в зависимости от ожидаемого эффекта.
@@ -46,21 +86,99 @@ CSS псевдокласс `:nth-last-child(an+b)` находит элемент
 
 ### [`filter`](https://developer.mozilla.org/ru/docs/Web/CSS/filter)
 
-#### [`blure()`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#blur_%D1%80%D0%B0%D0%B7%D0%BC%D1%8B%D1%82%D0%B8%D0%B5)
+Пример:
+```html
+<div class="example blur">
+    <p>Размытие (blur)</p>
+    <img src="https://via.placeholder.com/200" alt="Blur example">
+</div>
 
-Применяет гауссово размытие к входному изображению. Значение `radius` определяет значение стандартного отклонения для гауссовой функции или количество пикселей на экране, которые смешиваются друг с другом, поэтому большее значение создаст большее размытие. Если параметр не указан, то используется значение `0`. Параметр указывается как длина CSS, но не принимает процентные значения.
+<div class="example brightness">
+    <p>Яркость (brightness)</p>
+    <img src="https://via.placeholder.com/200" alt="Brightness example">
+</div>
 
-#### [`brightness()`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#brightness_%D1%8F%D1%80%D0%BA%D0%BE%D1%81%D1%82%D1%8C)
+<div class="example contrast">
+    <p>Контраст (contrast)</p>
+    <img src="https://via.placeholder.com/200" alt="Contrast example">
+</div>
 
-Применяет линейный множитель к входному изображению, делая его более или менее ярким. Значение `0%` создаст изображение полностью черным. Значение `100%` оставляет входное изображение неизменным. Другие значения являются линейными множителями эффекта. Значения, превышающие `100%`, допускаются, обеспечивая более яркие результаты.
+<div class="example drop-shadow">
+    <p>Тень (drop-shadow)</p>
+    <img src="https://via.placeholder.com/200" alt="Drop-shadow example">
+</div>
 
-#### [`contrast()`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#contrast_%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D1%81%D1%82)
+<div class="example grayscale">
+    <p>Оттенки серого (grayscale)</p>
+    <img src="https://via.placeholder.com/200" alt="Grayscale example">
+</div>
 
-Регулирует контрастность входных данных. Значение `0%` создаст изображение полностью черным. Значение `100%` оставляет входные данные неизменными. Допускаются значения amount более `100%`, что обеспечивает результаты с меньшей контрастностью.
+<div class="example hue-rotate">
+    <p>Смена цвета (hue-rotate)</p>
+    <img src="https://via.placeholder.com/200" alt="Hue-rotate example">
+</div>
 
-#### [`drop-shadow()`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#drop-shadow_%D1%82%D0%B5%D0%BD%D1%8C)
+<div class="example invert">
+    <p>Инверсия (invert)</p>
+    <img src="https://via.placeholder.com/200" alt="Invert example">
+</div>
 
-Применяет эффект тени к входному изображению. Тень — это фактически размытая, смещенная версия альфа-маски входного изображения, нарисованная определенным цветом, наложенная под изображением. Эта функция похожа на более устоявшееся свойство `box-shadow`; разница в том, что с фильтрами некоторые браузеры обеспечивают аппаратное ускорение для лучшей производительности.
+<div class="example opacity">
+    <p>Прозрачность (opacity)</p>
+    <img src="https://via.placeholder.com/200" alt="Opacity example">
+</div>
+
+<div class="example saturate">
+    <p>Насыщенность (saturate)</p>
+    <img src="https://via.placeholder.com/200" alt="Saturate example">
+</div>
+
+<div class="example sepia">
+    <p>Сепия (sepia)</p>
+    <img src="https://via.placeholder.com/200" alt="Sepia example">
+</div>
+```
+```css
+body {
+        display: grid;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    .example { max-width: 200px; }
+    img { width: 100%; }
+
+    .blur img { filter: blur(5px); }
+    .brightness img { filter: brightness(50%); }
+    .contrast img { filter: contrast(200%); }
+    .drop-shadow img { filter: drop-shadow(10px 10px 5px gray); }
+    .grayscale img { filter: grayscale(100%); }
+    .hue-rotate img { filter: hue-rotate(90deg); }
+    .invert img { filter: invert(100%); }
+    .opacity img { filter: opacity(50%); }
+    .saturate img { filter: saturate(200%); }    
+    .sepia img { filter: sepia(100%); }
+```
+
+[Здесь](https://jsbin.com/juyituwuho/edit?html,css,output) вы можете увидеть работу этого кода.
+
+#### [`blure() - размытие`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#blur_%D1%80%D0%B0%D0%B7%D0%BC%D1%8B%D1%82%D0%B8%D0%B5)
+
+Представь, что ты смотришь на стекло, покрытое туманом. Всё за стеклом выглядит размытым. Функция `blur()` делает то же самое с картинкой или элементом на сайте. Чем больше число, тем сильнее размытие.
+
+#### [`brightness() - яркость`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#brightness_%D1%8F%D1%80%D0%BA%D0%BE%D1%81%D1%82%D1%8C)
+
+Это как кнопка "яркость" на телефоне. Уменьши значение, и изображение станет темнее. Увеличь — станет светлее.
+
+#### [`contrast() - контраст`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#contrast_%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D1%81%D1%82)
+
+Контраст похож на настройку "чёткости". Если контраст низкий, все цвета сливаются. Если высокий — всё выглядит ярче и чётче.
+
+#### [`drop-shadow() - тень`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#drop-shadow_%D1%82%D0%B5%D0%BD%D1%8C)
+
+Это как нарисовать тень под картинкой, чтобы она выглядела "объёмной".
 
 Параметры:
 - `<offset-x>` `<offset-y>` (обязательно). Это два значения `<length>` для установки смещения тени. `<offset-x>` указывает горизонтальное расстояние. Отрицательные значения помещают тень слева от элемента. `<offset-y>` указывает вертикальное расстояние. Отрицательные значения помещают тень над элементом. Если оба значения равны `0`, тень помещается за элемент (и может создавать эффект размытия, если заданы `<blur-radius>` и/или `<spread-radius>`).
@@ -68,29 +186,29 @@ CSS псевдокласс `:nth-last-child(an+b)` находит элемент
 - `<spread-radius>` (необязательно). Это четвертое значение `<length>`. Положительные значения заставят тень расширяться и становиться больше, а отрицательные значения заставят тень сжиматься. Если не указано, будет `0` (тень будет того же размера, что и элемент).
 - `<color>` (необязательно). Если не указано, цвет зависит от браузера.
 
-#### [`grayscale()`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#grayscale_%D0%BE%D1%82%D1%82%D0%B5%D0%BD%D0%BA%D0%B8_%D1%81%D0%B5%D1%80%D0%BE%D0%B3%D0%BE)
+#### [`grayscale() - оттенки серого`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#grayscale_%D0%BE%D1%82%D1%82%D0%B5%D0%BD%D0%BA%D0%B8_%D1%81%D0%B5%D1%80%D0%BE%D0%B3%D0%BE)
 
-Преобразует входное изображение в оттенки серого. Значение `100%` полностью соответствует оттенкам серого. Значение `0%` оставляет входные данные неизменными. Значения от `0%` до `100%` являются линейными множителями эффекта.
+Представь, что ты смотришь старый чёрно-белый фильм. Эта функция делает изображение серым, как в таких фильмах.
 
-#### [`hue-rotate()`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#hue-rotate_%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE%D1%82%D1%82%D0%B5%D0%BD%D0%BA%D0%B0)
+#### [`hue-rotate() - смена цвета`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#hue-rotate_%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE%D1%82%D1%82%D0%B5%D0%BD%D0%BA%D0%B0)
 
-Применяет поворот оттенка к входному изображению. Значение угла определяет количество градусов вокруг цветового круга, на которое будут скорректированы входные образцы. Значение `0deg` градусов оставляет входные данные неизменными. Если параметр угла отсутствует, используется значение `0deg` градусов. Хотя максимального значения нет, эффект значений выше `360deg` градусов огибает.
+Ты наверняка видел радугу. Эта функция меняет цвета изображения, как будто вращает радугу.
 
-#### [`invert()`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#invert_%D0%B8%D0%BD%D0%B2%D0%B5%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)
+#### [`invert() - инверсия`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#invert_%D0%B8%D0%BD%D0%B2%D0%B5%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)
 
-Инвертирует образцы во входном изображении. Значение `100%` полностью инвертирует. Значение `0%` оставляет входные данные неизменными. Значения от `0%` до `100%` являются линейными множителями эффекта.
+Это как фотография негатива в старых фотоаппаратах: светлое становится тёмным, а тёмное — светлым.
 
-#### [`opacity()`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#opacity_%D0%BD%D0%B5%D0%BF%D1%80%D0%BE%D0%B7%D1%80%D0%B0%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C)
+#### [`opacity() - прозрачность`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#opacity_%D0%BD%D0%B5%D0%BF%D1%80%D0%BE%D0%B7%D1%80%D0%B0%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C)
 
-Применяет прозрачность к образцам входного изображения. Значение `0%` полностью прозрачно. Значение `100%` оставляет ввод неизменным. Значения от `0%` до `100%` являются линейными множителями эффекта. Эта функция похожа на более устоявшееся свойство `opacity`; разница в том, что с фильтрами некоторые браузеры обеспечивают аппаратное ускорение для лучшей производительности.
+Представь, что смотришь через стекло. Чем больше прозрачность, тем меньше видно элемент.
 
-#### [`saturate()`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#saturate_%D0%BD%D0%B0%D1%81%D1%8B%D1%89%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D1%8C)
+#### [`saturate() - насыщенность`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#saturate_%D0%BD%D0%B0%D1%81%D1%8B%D1%89%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D1%8C)
 
-Насыщает входное изображение. Значение `0%` полностью ненасыщенное. Значение `100%` оставляет входные данные неизменными. Другие значения являются линейными множителями эффекта. Значения более `100%` допускаются, обеспечивая сверхнасыщенные результаты.
+Эта функция делает цвета либо яркими и насыщенными, либо бледными и тусклыми.
 
-#### [`sepia()`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#sepia_%D1%81%D0%B5%D0%BF%D0%B8%D1%8F)
+#### [`sepia() - сепия`](https://developer.mozilla.org/ru/docs/Web/CSS/filter#sepia_%D1%81%D0%B5%D0%BF%D0%B8%D1%8F)
 
-Преобразует входное изображение в сепию.Значение `100%` — полная сепия. Значение `0%` оставляет входное изображение неизменным. Значения от `0%` до `100%` — линейные множители эффекта.
+Это как старинные фотографии с коричневыми оттенками.
 
 #### [Комбинирование функций](https://developer.mozilla.org/ru/docs/Web/CSS/filter#%D0%BA%D0%BE%D0%BC%D0%B1%D0%B8%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B9)
 
@@ -114,6 +232,65 @@ CSS псевдокласс `:nth-last-child(an+b)` находит элемент
 ```
 Все дочерние элементы флекс-контейнера становятся флекс-элементами, которые по умолчанию являются блочными элементами. То есть, теперь ссылки, лежащие внутри флекс-контейнера являются блочными элементами.
 
+Пример гибкой разметки основных блоков сайта:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/style.css">
+    <title>The Main</title>
+</head>
+<body class="body">
+    <header class="main-header main-container"></header>
+    <main class="main main-container"></main>
+    <footer class="main-footer main-container"></footer>
+</body>
+</html>
+```
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.body {
+    margin: 0 auto;
+    max-width: 1200px;
+    background-color: bisque;
+    padding: 30px;
+    /* даже если контента на странице мало, элемент с классом body будет иметь высоту не меньше высоты окна браузера */
+    min-height: 100vh;
+    /* включение гибкого позиционирования */
+    display: flex;
+    /* изменение главной (теперь направлена сверху-вниз) и поперечной (теперь направлена слева-направо) осей */
+    flex-direction: column;
+    /* флекс-элементы будут растянуты на всю доступную ширину (так как поменяли flex-direction) */
+    align-items: stretch;
+}
+
+.main-container {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: lightgray;
+    box-shadow: blue 0 0 10px;
+}
+
+.main-container:last-child {
+    margin: 0;
+}
+
+.main {
+    /* объект с классом main будет занимать все свободное пространство */
+    flex-grow: 1;
+}
+```
+
+[Здесь](https://jsbin.com/xovubeqati/edit?html,css,output) вы можете увидеть работу этого кода.
+
 #### [`flex-direction`](https://developer.mozilla.org/ru/docs/Web/CSS/flex-direction)
 
 На рисунке представлена схема флекс-контейнера.
@@ -128,6 +305,51 @@ CSS-свойство `flex-direction` указывает, как flex-элеме
 - `column`. Главная и поперечная оси flex-контейнера поменены местами. Точки `main-start` и `main-end` такие же, как точки `before` и `after` режима записи (writing-mode).
 - `column-reverse`. Ведёт себя как `column`, но точки `main-start` и `main-end` переставлены местами.
 
+Пример:
+```html
+<h3>row</h3>
+<div class="container row">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+<h3>row-reverse</h3>
+<div class="container row-reverse">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+<h3>column</h3>
+<div class="container column">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+<h3>column-reverse</h3>
+<div class="container column-reverse">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+```
+```css
+.container {
+    display: flex;
+    border: 2px solid black;
+}
+.item {
+    padding: 10px;
+    border: 1px solid blue;
+}
+
+.row { flex-direction: row; }
+.row-reverse { flex-direction: row-reverse; }
+.column { flex-direction: column; }
+.column-reverse { flex-direction: column-reverse; }
+```
+
+[Здесь](https://jsbin.com/quwayesuzi/edit?html,css,output) вы можете увидеть работу этого кода.
+
 #### [`flex-wrap`](https://developer.mozilla.org/ru/docs/Web/CSS/flex-wrap)
 
 Свойство CSS `flex-wrap` задаёт правила вывода flex-элементов — в одну строку или в несколько, с переносом блоков. Если перенос разрешён, то возможно задать направление, в котором выводятся блоки.
@@ -137,9 +359,124 @@ CSS-свойство `flex-direction` указывает, как flex-элеме
 - `wrap`. Расположение в несколько линий. Свойство `cross-start` эквивалентно `start` или `before` в зависимости от значения `flex-direction` и свойство `cross-end` противоположно `cross-start`.
 - `wrap-reverse`. Ведёт себя так же, как и `wrap`, но `cross-start` и `cross-end` инвертированы.
 
+Пример:
+```html
+<h3>nowrap</h3>
+<div class="container nowrap">
+    <div class="item">Content of item 1</div>
+    <div class="item">Content of item 2</div>
+    <div class="item">Content of item 3</div>
+    <div class="item">Content of item 4</div>
+    <div class="item">Content of item 5</div>
+    <div class="item">Content of item 6</div>
+    <div class="item">Content of item 7</div>
+    <div class="item">Content of item 8</div>
+</div>
+<h3>wrap</h3>
+<div class="container wrap">
+    <div class="item">Content of item 1</div>
+    <div class="item">Content of item 2</div>
+    <div class="item">Content of item 3</div>
+    <div class="item">Content of item 4</div>
+    <div class="item">Content of item 5</div>
+    <div class="item">Content of item 6</div>
+    <div class="item">Content of item 7</div>
+    <div class="item">Content of item 8</div>
+</div>
+<h3>wrap-reverse</h3>
+<div class="container wrap-reverse">
+    <div class="item">Content of item 1</div>
+    <div class="item">Content of item 2</div>
+    <div class="item">Content of item 3</div>
+    <div class="item">Content of item 4</div>
+    <div class="item">Content of item 5</div>
+    <div class="item">Content of item 6</div>
+    <div class="item">Content of item 7</div>
+    <div class="item">Content of item 8</div>
+</div>
+```
+```css
+.container {
+    display: flex;
+    width: 100%;
+    border: 2px solid black;
+}
+.item {
+    padding: 20px;
+    border: 1px solid blue;
+}
+
+.nowrap { flex-wrap: nowrap; }
+.wrap { flex-wrap: wrap; }
+.wrap-reverse { flex-wrap: wrap-reverse; }
+```
+
+[Здесь](https://jsbin.com/bupilumavi/edit?html,css,output) вы можете увидеть работу этого кода.
+
 #### [`flex-flow`](https://developer.mozilla.org/ru/docs/Web/CSS/flex-flow)
 
 CSS свойство `flex-flow` является сокращением для отдельных свойств `flex-direction` и `flex-wrap`.
+
+Пример:
+```html
+<h3>row-reverse wrap-reverse</h3>
+<div class="container row-reverse-wrap-reverse">
+    <div class="flex-item">1</div>
+    <div class="flex-item">2</div>
+    <div class="flex-item">3</div>
+    <div class="flex-item">4</div>
+    <div class="flex-item">5</div>
+    <div class="flex-item">6</div>
+    <div class="flex-item">7</div>
+    <div class="flex-item">8</div>
+    <div class="flex-item">9</div>
+    <div class="flex-item">10</div>
+    <div class="flex-item">11</div>
+    <div class="flex-item">12</div>
+</div>
+<h3>column wrap-reverse</h3>
+<div class="container column-wrap-reverse">
+    <div class="flex-item">1</div>
+    <div class="flex-item">2</div>
+    <div class="flex-item">3</div>
+    <div class="flex-item">4</div>
+    <div class="flex-item">5</div>
+    <div class="flex-item">6</div>
+    <div class="flex-item">7</div>
+    <div class="flex-item">8</div>
+    <div class="flex-item">9</div>
+    <div class="flex-item">10</div>
+    <div class="flex-item">11</div>
+    <div class="flex-item">12</div>
+</div>
+```
+```css
+.container {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    border: 2px solid #ccc;
+}
+.flex-item {
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.row-reverse-wrap-reverse { flex-flow: row-reverse wrap-reverse; }
+.column-wrap-reverse {
+    flex-flow: column wrap-reverse;
+    height: 320px;
+}
+```
+
+[Здесь](https://jsbin.com/foqanizewi/edit?html,css,output) вы можете увидеть работу этого кода.
 
 #### [`order`](https://developer.mozilla.org/ru/docs/Web/CSS/order)
 
@@ -148,9 +485,67 @@ CSS свойство `order` определяет порядок, использ
 Значения:
 - `<integer>`. Представляет порядковую группу, которая присвоена flex элементу.
 
+Пример:
+```html
+<h3>order</h3>
+<div class="container">
+    <div class="item one">Item 1 (1)</div>
+    <div class="item">Item 2</div>
+    <div class="item minus-one">Item 3 (-1)</div>
+    <div class="item one">Item 4 (1)</div>
+    <div class="item">Item 5</div>
+    <div class="item minus-one">Item 6 (-1)</div>
+</div>
+```
+```css
+.container {
+    display: flex;
+    border: 2px solid black;
+}
+.item {
+    padding: 20px;
+    border: 1px solid blue;
+}
+
+.minus-one { order: -1; }
+.one { order: 1; }
+```
+
+[Здесь](https://jsbin.com/jafiqogedu/edit?html,css,output) вы можете увидеть работу этого кода.
+
 #### [`gap`](https://developer.mozilla.org/ru/docs/Web/CSS/gap)
 
 Свойство gap CSS задаёт отступы между колонками и рядами. Является сокращением для свойств `row-gap` и `column-gap`.
+
+Пример:
+```html
+<h3>gap</h3>
+<div class="container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+    <div class="item">Item 5</div>
+    <div class="item">Item 6</div>
+    <div class="item">Item 7</div>
+    <div class="item">Item 8</div>
+    <div class="item">Item 9</div>
+</div>
+```
+```css
+.container {
+    border: 2px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.item {
+    padding: 20px;
+    border: 1px solid blue;
+}
+```
+
+[Здесь](https://jsbin.com/viwomagimu/edit?html,css,output) вы можете увидеть работу этого кода.
 
 #### [`justify-content`](https://developer.mozilla.org/ru/docs/Web/CSS/justify-content)
 
@@ -169,6 +564,65 @@ CSS свойство `justify-content` определяет, как браузе
 - `space-around`. Элементы равномерно распределены вдоль главной оси контейнера. Расстояния между каждой парой соседних элементов равны. Пустые пространства перед первым элементом и после последнего элемента равны половине расстояния между парами соседних элементов.
 - `space-evenly`. Элементы равномерно распределены вдоль главной оси контейнера. Расстояния между каждой парой соседних элементов равны расстояниям от начала контейнера до первого элемента и от последнего элемента до конца контейнера.
 
+Пример:
+```html
+<h3>flex-start</h3>
+<div class="flex-start container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+<h3>flex-end</h3>
+<div class="flex-end container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+<h3>center</h3>
+<div class="center container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+<h3>space-between</h3>
+<div class="space-between container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+<h3>space-around</h3>
+<div class="space-around container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+<h3>space-evenly</h3>
+<div class="space-evenly container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+```
+```css
+.container {
+    display: flex;
+    border: 2px solid black;
+}
+.item {
+    padding: 20px;
+    border: 1px solid blue;
+}
+
+.flex-start { justify-content: flex-start; }
+.flex-end { justify-content: flex-end; }
+.center { justify-content: flex-start; }
+.space-between { justify-content: space-between; }
+.space-around { justify-content: space-around; }
+.space-evenly { justify-content: space-evenly; }
+```
+
+[Здесь](https://jsbin.com/yapibidozo/edit?html,css,output) вы можете увидеть работу этого кода.
+
 #### [`align-items`](https://developer.mozilla.org/ru/docs/Web/CSS/align-items)
 
 CSS свойство ё выравнивает flex-элементы текущей flex-линии по поперечной оси.
@@ -179,6 +633,171 @@ CSS свойство ё выравнивает flex-элементы текущ�
 - `flex-end`. Поперечный край поля гибкого элемента совпадает с поперечным краем линии.
 - `center`. Внешний отступ полей гибкого элемента центрируется в пределах линии на поперечной оси. Если поперечный размер элемента больше, чем у гибкого контейнера, он будет одинаково переполнен в обоих направлениях.
 - `stretch`. Элементы Flex растягиваются, на всю величину поперечного размера "строки" flex-контейнера.
+
+Пример:
+```html
+<h3>flex-start</h3>
+<div class="container flex-start">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+<h3>flex-end</h3>
+<div class="container flex-end">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+<h3>center</h3>
+<div class="container center">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+<h3>stretch</h3>
+<div class="container stretch">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+```
+```css
+.container {
+    display: flex;
+    height: 150px;
+    border: 2px solid black;
+}
+.item {
+    padding: 20px;
+    border: 1px solid blue;
+}
+
+.flex-start { align-items: flex-start; }
+.flex-end { align-items: flex-end; }
+.center { align-items: center; }
+.stretch { align-items: stretch; }
+```
+
+[Здесь](https://jsbin.com/zedadarogu/edit?html,css,output) вы можете увидеть работу этого кода.
+
+#### [`align-content`](https://developer.mozilla.org/ru/docs/Web/CSS/align-content)
+
+Свойство CSS `align-content` устанавливает распределение пространства между и вокруг элементами контента вдоль поперечной оси flexbox контейнера.
+
+Значения:
+- `start`. Элементы расположены вплотную друг к другу, прижавшись к началу контейнера выравнивания по поперечной оси.
+- `end`. Элементы расположены вплотную друг к другу, прижавшись к концу контейнера выравнивания по поперечной оси.
+- `flex-start`. Элементы расположены вплотную друг к другу, прижавшись к краю контейнера выравнивания в зависимости от поперечной стороны начала (cross-start) контейнера flex. Это относится только к элементам макета flex. Для элементов, которые не являются потомками flex контейнера, это значение трактуется как `start`.
+- `flex-end`. Элементы расположены вплотную друг к другу, прижавшись к краю контейнера выравнивания в зависимости от поперечной стороны конца (cross-end) контейнера flex. Это относится только к элементам макета flex. Для элементов, которые не являются потомками flex контейнера, это значение трактуется как `end`.
+- `center`. Элементы расположены вплотную друг к другу в центре контейнера выравнивания по поперечной оси.
+- `normal`. Элементы расположены в их дефолтной позиции как если бы `align-content` не было определено.
+- `space-between`. Элементы равномерно распределены внутри контейнера выравнивания вдоль поперечной оси. Интервал между каждой парой соседних элементов одинаков. Первый элемент находится на одном уровне с начальной кромкой контейнера выравнивания на поперечной оси, а последний элемент находится на одном уровне с конечной кромкой контейнера выравнивания на поперечной оси.
+- `space-around`. Элементы равномерно распределены внутри контейнера выравнивания вдоль поперечной оси. Интервал между каждой парой соседних предметов одинаков. Пустое пространство до первого и после последнего элемента равно половине пространства между каждой парой смежных элементов.
+- `space-evenly`. Элементы равномерно распределены внутри контейнера выравнивания вдоль поперечной оси. Интервал между каждой парой соседних элементов, начальным краем и первым элементом, а также конечным краем и последним элементом абсолютно одинаков.
+- `stretch`. Если объединённый размер элементов вдоль поперечной оси меньше размера контейнера выравнивания, размер любого auto-размерного элемента увеличивается одинаково (не пропорционально), но при этом соблюдаются ограничения, налагаемые `max-height`/`max-width` (или эквивалентной функциональности), так что объединённый размер точно заполняет контейнер выравнивания вдоль поперечной оси.
+
+Пример:
+```html
+<h3>flex-start</h3>
+<div class="flex-start container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+    <div class="item">Item 5</div>
+    <div class="item">Item 6</div>
+    <div class="item">Item 7</div>
+    <div class="item">Item 8</div>
+</div>
+<h3>flex-end</h3>
+<div class="flex-end container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+    <div class="item">Item 5</div>
+    <div class="item">Item 6</div>
+    <div class="item">Item 7</div>
+    <div class="item">Item 8</div>
+</div>
+<h3>center</h3>
+<div class="center container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+    <div class="item">Item 5</div>
+    <div class="item">Item 6</div>
+    <div class="item">Item 7</div>
+    <div class="item">Item 8</div>
+</div>
+<h3>stretch</h3>
+<div class="stretch container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+    <div class="item">Item 5</div>
+    <div class="item">Item 6</div>
+    <div class="item">Item 7</div>
+    <div class="item">Item 8</div>
+</div>
+<h3>space-between</h3>
+<div class="space-between container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+    <div class="item">Item 5</div>
+    <div class="item">Item 6</div>
+    <div class="item">Item 7</div>
+    <div class="item">Item 8</div>
+</div>
+<h3>space-around</h3>
+<div class="space-around container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+    <div class="item">Item 5</div>
+    <div class="item">Item 6</div>
+    <div class="item">Item 7</div>
+    <div class="item">Item 8</div>
+</div>
+<h3>space-evenly</h3>
+<div class="space-evenly container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+    <div class="item">Item 5</div>
+    <div class="item">Item 6</div>
+    <div class="item">Item 7</div>
+    <div class="item">Item 8</div>
+</div>
+```
+```css
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    height: 300px;
+    border: 2px solid black;
+}
+.item {
+    padding: 20px;
+    border: 1px solid blue;
+}
+
+.flex-start { align-content: flex-start; }
+.flex-end { align-content: flex-end; }
+.center { align-content: center; }
+.stretch { align-content: stretch; }
+.space-between { align-content: space-between; }
+.space-around { align-content: space-around; }
+.space-evenly { align-content: space-evenly; }
+```
+
+[Здесь](https://jsbin.com/bojiloculu/edit?html,css,output) вы можете увидеть работу этого кода.
 
 #### [`align-self`](https://developer.mozilla.org/ru/docs/Web/CSS/align-self)
 
@@ -193,12 +812,32 @@ CSS свойство ё выравнивает flex-элементы текущ�
 - `center`. Поле поля элемента flex центрировано в пределах линии на поперечной оси. Если поперечный размер элемента больше контейнера flex, он будет переполняться одинаково в обоих направлениях.
 - `stretch`. Если совокупный размер элементов вдоль поперечной оси меньше размера контейнера выравнивания и элемент имеет автоматический размер, его размер увеличивается равномерно (не пропорционально), при этом соблюдаются ограничения, налагаемые `max-height`/`max-width` (или эквивалентной функциональностью), так что совокупный размер всех элементов с автоматическим размером точно заполняет контейнер выравнивания вдоль поперечной оси.
 
+Пример:
+```html
+
+```
+```css
+
+```
+
+[Здесь]() вы можете увидеть работу этого кода.
+
 #### [flex-grow](https://developer.mozilla.org/ru/docs/Web/CSS/flex-grow)
 
 CSS-свойство `flex-grow` определяет как много свободного пространства во flex-контейнере должно быть назначено текущему элементу (flex grow factor — «коэффициент увеличения flex»). Свободное пространство — разница между размером flex-контейнера и размером всех его flex-элементов вместе. Если все sibling-элементы (sibling items — элементы одного уровня вложенности, состоящие по отношению друг к другу в родственной связи как брат или сестра), имеют одинаковый коэффициент `flex-grow`, то все они получат одинаковую долю свободного пространства, в противном случае оно распределяется в соответствии с соотношением, определённым различными коэффициентами `flex-grow`.
 
 Значения:
 - `<number>`. Отрицательные значения недопустимы. По умолчанию 0.
+
+Пример:
+```html
+
+```
+```css
+
+```
+
+[Здесь]() вы можете увидеть работу этого кода.
 
 ## Домашка
 
@@ -310,7 +949,7 @@ git pull
 git add .
 
 # Создаем коммит на основании изщменений, добавленных в индекс гита, задаем сообщение коммита
-git commit -m "Finally done my homework to 2024-11-30"
+git commit -m "Finally done my homework to 2024-12-01"
 
 # Загружаем изменения в удаленный репозиторий на гитхабе
 git push
