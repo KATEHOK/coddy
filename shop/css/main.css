@@ -75,11 +75,21 @@
     gap: 20px;
 }
 
+.three-column-grid-container {
+    display: grid;
+    gap: 20px;
+    /* grid-template-columns: repeat(3, auto); */
+    grid-template-columns: repeat(3, 1fr);
+    /* tmp */
+    grid-auto-rows: 100px;
+}
+
 .body {
     min-height: 100vh;
     width: 100%;
     background-image: radial-gradient(rgb(0, 0, 255), rgb(158, 0, 158));
     padding: 40px;
+    /* gap: 30px; */
 }
 
 .main-container {
@@ -100,12 +110,24 @@
 
 .main-nav {
     justify-content: center;
+    /* gap: 40px; */
 }
 
 /* MAIN */
 
 .main {
     flex-grow: 1;
+}
+
+.cards {
+
+}
+
+.card {
+    background-color: blueviolet;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
 }
 
 /* MAIN FOOTER */
