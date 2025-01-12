@@ -61,7 +61,7 @@
 }
 
 :root {
-    --base-year: 20s;
+    --base-year: 5s;
     --base-radius: 150px;
 }
 
@@ -229,7 +229,539 @@ git pull
 
 ### Вносим исправления
 
+Такая плоблема возникла из-за того, что у нас и в центрировании, и в анимации использовалось свойство `transform`, из-за чего оно перезаписывалось во время анимации, и центрирование пропадало.
+
+Рассмотрим с вами один из водможных способов пофиксить это дело.
+
+#### Текущая ситуация
+
+Итак, на данный момент ваши файлы должны выглядеть так:
+
+`html/index.html`:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="stars">
+        <img src="../img/sun.png" alt="sun" class="sun">
+
+        <div class="orbit earth-orbit">
+            <img src="../img/earth.png" alt="earth" class="earth">
+        </div>
+    </div>
+</body>
+</html>
+```
+
+`css/main.css`:
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --base-year: 20s;
+    --base-radius: 150px;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+}
+
+.stars {
+    position: relative;
+    height: 100%;
+    background-size: cover;
+    background-color: #000;
+    background-image: url(../img/stars.png);
+}
+
+@keyframes move-stars {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 5000px 5000px;
+    }
+}
+
+.stars::after {
+    animation-name: move-stars;
+    animation-duration: 120s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    width: 100%;
+    height: 100%;
+    content: "";
+    display: block;
+    background-image: url(../img/twinkling.png);
+}
+
+.sun {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:
+        translateY(-50%)
+        translateX(-50%);
+}
+
+@keyframes rotate-planet {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.orbit {
+    animation-name: rotate-planet;
+    animation-duration: var(--base-year);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:
+        translateY(-50%)
+        translateX(-50%);
+
+    width: calc(2 * var(--base-radius));
+    height: calc(2 * var(--base-radius));
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+```
+
+#### Элемент - обёртка для орбиты
+
+Сразу после солнца добавим тэг `div` с классом `orbit-wrapper`. Внутрь него уже поместим нашу орбиту с Землей.
+
+```html
+<div class="orbit-wrapper">
+    <div class="orbit earth-orbit">
+        <img src="../img/earth.png" alt="earth" class="earth">
+    </div>
+</div>
+```
+
+В дальнейшем будем новые орбиты тоже помещать в такие же элементы.
+
+В файле стилей для селектора по классу этого элемента (`.orbit-wrapper`) добавьте свойства для его центрирования.
+
+```css
+.orbit-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:
+        translateY(-50%)
+        translateX(-50%);
+}
+```
+
+Теперь эти свойства можно убрать из блока стилизации по селектору `.orbit`.
+
+```css
+.orbit {
+    animation-name: rotate-planet;
+    animation-duration: var(--base-year);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    width: calc(2 * var(--base-radius));
+    height: calc(2 * var(--base-radius));
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+```
+
+Таким образом, элемент-обертка орбиты будет отвечать за центрирование орбиты, а уже все остальное будет делать сама орбита.
+
+#### Смещение планеты
+
+На данный момент расстояние от центра вращающейся планеты до центра Солнца меньше, чем желаемый радиус орбиты на величину, равную радиусу этой планеты. Чтоб это исправить, можно дополнительно сместить планетув сторону от Солнца на половину ее радиуса.
+
+Для этого в файле стилей создаем новый блок стилизации по селектору `.planet` и указываем соответствующее свойство трансформации.
+
+```css
+.planet {
+    transform: translateX(-50%);
+}
+```
+
+#### Результат
+
+Теперь Земля обращается вокруг Солнца - как и было задумано.
+
+Проверьте, чтобы ваш код соответствовал моему:
+
+`html/index.html`:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="stars">
+        <img src="../img/sun.png" alt="sun" class="sun">
+
+        <div class="orbit-wrapper">
+            <div class="orbit earth-orbit">
+                <img src="../img/earth.png" alt="earth" class="planet earth">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+```
+
+`css/main.css`:
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --base-year: 5s;
+    --base-radius: 150px;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+}
+
+.stars {
+    position: relative;
+    height: 100%;
+    background-size: cover;
+    background-color: #000;
+    background-image: url(../img/stars.png);
+}
+
+@keyframes move-stars {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 5000px 5000px;
+    }
+}
+
+.stars::after {
+    animation-name: move-stars;
+    animation-duration: 120s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    width: 100%;
+    height: 100%;
+    content: "";
+    display: block;
+    background-image: url(../img/twinkling.png);
+}
+
+.sun {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:
+        translateY(-50%)
+        translateX(-50%);
+}
+
+.orbit-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:
+        translateY(-50%)
+        translateX(-50%);
+}
+
+@keyframes rotate-planet {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.orbit {
+    animation-name: rotate-planet;
+    animation-duration: var(--base-year);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    width: calc(2 * var(--base-radius));
+    height: calc(2 * var(--base-radius));
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.planet {
+    transform: translateX(-50%);
+}
+```
+
 ### Пример: как добавить новую планету
+
+Мы писали код таким образом, чтобы в дальнейшем было очень просто добавить новую планету.
+
+Давайте попробуем добавить Марс. Для этого сначала нужно продублировать разметку обертки орбиты Земли, орбиты Земли и Земли, после чего поменять все упоминания `earth` на те, которые относятся к Марсу.
+
+```html
+<div class="orbit-wrapper">
+    <div class="orbit mars-orbit">
+        <img src="../img/mars.png" alt="mars" class="planet mars">
+    </div>
+</div>
+```
+
+#### Радиус
+
+Если вы теперь попробуете посмотреть результат, то увидите только Марс без Земли. Это происходит потому, что у нас пока что радиус орбит и период обращения вокруг Солнца совпадают для обеих планет.
+
+Перед тем, как менять радиус орбиты Марса, изменим немного расчет размеров орбиты в блоке стилей по селектору `.orbit`. Пусть теперь размеры расчитываются на основе значения переменной `--radius`, а не `--base-radius`. Чтобы при этом ничего не поломалось, в блоке стилей по селектору `:root` определите еще одну переменную: `--radius`, при этом ее значение по умолчанию должно равняться значению перменной `--base-radius`.
+
+```css
+:root {
+    --base-year: 5s;
+    --base-radius: 150px;
+    --radius: var(--base-radius);
+}
+/* ... */
+.orbit {
+    animation-name: rotate-planet;
+    animation-duration: var(--base-year);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    width: calc(2 * var(--radius));
+    height: calc(2 * var(--radius));
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+```
+
+Чтобы изменить радиус орбиты Марса достаточно переопределить для нее значение переменной `--radius`, например, при помощи функции `calc()` и значения переменной `--base-radius`.
+
+```css
+.mars-orbit {
+    --radius: calc(70px + var(--base-radius));
+}
+```
+
+#### Период обращения
+
+Если вы теперь попробуете посмотреть результат, то увидите что Марс обращается вокруг Солнца за то же время, что и Земля, а это не соответствует действительности.
+
+Перед тем, как менять период обращения Марса, изменим немного расчет длительности анимации орбиты в блоке стилей по селектору `.orbit`. Пусть теперь длительность расчитывается на основе значения переменной `--year`, а не `--base-year`. Чтобы при этом ничего не поломалось, в блоке стилей по селектору `:root` определите еще одну переменную: `--year`, при этом ее значение по умолчанию должно равняться значению перменной `--base-year`.
+
+```css
+:root {
+    --base-year: 5s;
+    --base-radius: 150px;
+
+    --year: var(--base-year);
+    --radius: var(--base-radius);
+}
+/* ... */
+.orbit {
+    animation-name: rotate-planet;
+    animation-duration: var(--year);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    width: calc(2 * var(--radius));
+    height: calc(2 * var(--radius));
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+```
+
+Чтобы изменить длительность анимации орбиты Марса достаточно переопределить для нее значение переменной `--year`, например, при помощи функции `calc()` и значения переменной `--base-year`.
+
+```css
+.mars-orbit {
+    --radius: calc(70px + var(--base-radius));
+    --year: calc(1.88 * var(--base-year));
+}
+```
+
+Откуда я взял множитель `1.88`? Все просто - именно во столько раз дольше Марс делает полный оборот вокруг Солнца по сравнению с Землей.
+
+#### Результат
+
+Таким образом мы добавили еще одну планету - Марс.
+
+`html/index.html`:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="stars">
+        <img src="../img/sun.png" alt="sun" class="sun">
+
+        <div class="orbit-wrapper">
+            <div class="orbit earth-orbit">
+                <img src="../img/earth.png" alt="earth" class="planet earth">
+            </div>
+        </div>
+
+        <div class="orbit-wrapper">
+            <div class="orbit mars-orbit">
+                <img src="../img/mars.png" alt="mars" class="planet mars">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+```
+
+`css/main.css`:
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --base-year: 5s;
+    --base-radius: 150px;
+
+    --year: var(--base-year);
+    --radius: var(--base-radius);
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+}
+
+.stars {
+    position: relative;
+    height: 100%;
+    background-size: cover;
+    background-color: #000;
+    background-image: url(../img/stars.png);
+}
+
+@keyframes move-stars {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 5000px 5000px;
+    }
+}
+
+.stars::after {
+    animation-name: move-stars;
+    animation-duration: 120s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    width: 100%;
+    height: 100%;
+    content: "";
+    display: block;
+    background-image: url(../img/twinkling.png);
+}
+
+.sun {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:
+        translateY(-50%)
+        translateX(-50%);
+}
+
+.orbit-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:
+        translateY(-50%)
+        translateX(-50%);
+}
+
+@keyframes rotate-planet {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.orbit {
+    animation-name: rotate-planet;
+    animation-duration: var(--year);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    width: calc(2 * var(--radius));
+    height: calc(2 * var(--radius));
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.planet {
+    transform: translateX(-50%);
+}
+
+.mars-orbit {
+    --radius: calc(70px + var(--base-radius));
+    --year: calc(1.88 * var(--base-year));
+}
+```
 
 ### Добавляем оставшиеся планеты
 

@@ -5,8 +5,11 @@
 }
 
 :root {
-    --base-year: 20s;
+    --base-year: 5s;
     --base-radius: 150px;
+
+    --year: var(--base-year);
+    --radius: var(--base-radius);
 }
 
 body {
@@ -42,11 +45,19 @@ body {
     content: "";
     display: block;
     background-image: url(../img/twinkling.png);
-
 }
 
 .sun {
     display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:
+        translateY(-50%)
+        translateX(-50%);
+}
+
+.orbit-wrapper {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -67,22 +78,24 @@ body {
 
 .orbit {
     animation-name: rotate-planet;
-    animation-duration: var(--base-year);
+    animation-duration: var(--year);
     animation-timing-function: linear;
     animation-iteration-count: infinite;
 
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform:
-        translateY(-50%)
-        translateX(-50%);
-
-    width: calc(2 * var(--base-radius));
-    height: calc(2 * var(--base-radius));
+    width: calc(2 * var(--radius));
+    height: calc(2 * var(--radius));
 
     display: flex;
     justify-content: start;
     align-items: center;
+}
+
+.planet {
+    transform: translateX(-50%);
+}
+
+.mars-orbit {
+    --radius: calc(70px + var(--base-radius));
+    --year: calc(1.88 * var(--base-year));
 }
 
