@@ -5,7 +5,7 @@
 }
 
 :root {
-    --base-year: 5s;
+    --base-year: 1s;
     --base-radius: 150px;
 
     --year: var(--base-year);
@@ -15,6 +15,7 @@
 body {
     width: 100%;
     height: 100vh;
+    overflow: hidden;
 }
 
 .stars {
@@ -84,6 +85,8 @@ body {
 
     width: calc(2 * var(--radius));
     height: calc(2 * var(--radius));
+    border-radius: 50%;
+    border: 2px solid rgb(255 255 255 / 0.1);
 
     display: flex;
     justify-content: start;
@@ -97,5 +100,30 @@ body {
 .mars-orbit {
     --radius: calc(70px + var(--base-radius));
     --year: calc(1.88 * var(--base-year));
+}
+
+.jupiter-orbit {
+    --radius: calc(140px + var(--base-radius));
+    --year: calc(11.86 * var(--base-year));
+}
+
+.saturn-orbit {
+    --radius: calc(210px + var(--base-radius));
+    --year: calc(29.46 * var(--base-year));
+}
+
+.uranus-orbit {
+    --radius: calc(280px + var(--base-radius));
+    --year: calc(84 * var(--base-year));
+}
+
+.neptune-orbit {
+    --radius: calc(350px + var(--base-radius));
+    --year: calc(165 * var(--base-year));
+}
+
+.pluto-orbit {
+    --radius: calc(420px + var(--base-radius));
+    --year: calc(248 * var(--base-year));
 }
 
