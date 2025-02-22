@@ -68,6 +68,14 @@ button {
     color: inherit;
 }
 
+.tt-uppercase {
+    text-transform: uppercase;
+}
+
+.tt-capitalize {
+    text-transform: capitalize;
+}
+
 .container {
     width: var(--base-width);
     margin-inline: auto;
