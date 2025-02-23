@@ -313,6 +313,13 @@ button {
     flex-direction: column;
     align-items: center;
     position: relative;
+    row-gap: 1rem;
+    transition-duration: .3s;
+}
+
+.featured-card:hover {
+    padding-bottom: 3rem;
+    box-shadow: 0 12px 32px hsla(0, 0%, 20%, .1);
 }
 
 .featured-card-tag {
@@ -332,6 +339,46 @@ button {
     height: 214px;
 }
 
+.featured-card-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: .75rem;
+}
+
+.featured-card-title {
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: var(--fw-bold);
+}
+
+.featured-card-price {
+    font-size: 1rem;
+    font-weight: var(--fw-bold);
+    color: var(--first-color);
+}
+
+.featured-card-button {
+    border: none;
+    background-color: var(--button-color);
+    padding: .5rem 2rem;
+    font-weight: var(--fw-medium);
+    color: #fff;
+    transition: .3s;
+    font-size: .875rem;
+    transform: translateY(-1rem);
+    opacity: 0;
+}
+
+.featured-card:hover .featured-card-button {
+    padding-block: 1.25rem;
+    opacity: 1;
+    transform: none;
+}
+
+.featured-card-button:hover {
+    background-color: var(--button-color-alt);
+}
 
 
 
