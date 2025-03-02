@@ -24,6 +24,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .visually-hidden {
     position: absolute !important;
     width: 1px !important;
@@ -380,7 +384,29 @@ button {
     background-color: var(--button-color-alt);
 }
 
+/* echo sekcii */
 
+.testimonial-inner {
+    display: grid;
+    column-gap: 13rem;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+}
+
+.testimonial-slider-content {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+}
+
+.testimonial-slide {
+    flex-shrink: 0;
+    width: 100%;
+    scroll-snap-align: center;
+}
 
 
 
