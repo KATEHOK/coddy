@@ -29,3 +29,4 @@ SLIDER_ARROW_LEFT.addEventListener("click", () => {
 SLIDER_ARROW_RIGHT.addEventListener("click", () => {
     changeSlide("right");
 });
+// dfghjkl;'
