@@ -490,3 +490,63 @@ button {
     top: 5rem;
     right: 5rem;
 }
+
+.products-cards {
+    padding-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    justify-content: center;
+    gap: 2.5rem;
+}
+
+.products-card {
+    position: relative;
+    padding-block: 2rem;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    transition-duration: .3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.products-card:hover {
+    box-shadow: 0 8px 32px hsla(0, 0%, 10%, .1);
+}
+
+.products-card-img {
+    height: 155px;
+    margin-bottom: 1rem;
+}
+
+.products-card-title {
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    font-size: .875rem;
+}
+
+.products-card-price {
+    color: var(--first-color);
+    font-size: .875rem;
+    font-weight: var(--fw-medium);
+}
+
+.products-card-button {
+    border: none;
+    background-color: var(--button-color);
+    padding: 0.4rem;
+    color: #fff;
+    transition-duration: .3s;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.products-card-button:hover {
+    background-color: var(--button-color-alt);
+}
+
+.products-card-button > i {
+    font-size: 1rem;
+}
+
