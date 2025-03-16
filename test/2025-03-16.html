@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025-03-16</title>
+    <style>
+        * { padding: 0; margin: 0; box-sizing: border-box; }
+
+        .video-player {
+            width: 500px;
+        }
+        .widget {
+            width: 100%;
+            height: 500px;
+        }
+        .form {
+            min-height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <!-- src="./video/2025-03-14-12-38-06-Trim.mp4" -->
+    <!-- poster="../rolex-shop/img/png/home.png" -->
+    <video class="video-player" controls loop muted width="500">
+        <source src="./video/2025-03-14-12-38-06-Trim.mp4" type="video/mp4">
+    </video>
+
+    <audio controls muted>
+        <source src="./audio/music.mp3">
+    </audio>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/6PL2TqBdz0I?si=dI0cka3UQQiP-_ux" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    
+    <div style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/21647/krasnoznamensk/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Краснознаменск</a><a href="https://yandex.ru/maps/geo/krasnoznamensk/53062560/?ll=37.041618%2C55.594753&source=serp_navig&utm_medium=mapframe&utm_source=maps&z=13" style="color:#eee;font-size:12px;position:absolute;top:14px;">Краснознаменск — карта, что посмотреть, фото, как добраться, координаты</a><iframe src="https://yandex.ru/map-widget/v1/?ll=37.041618%2C55.594753&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1MzA2MjU2MBJP0KDQvtGB0YHQuNGPLCDQnNC-0YHQutC-0LLRgdC60LDRjyDQvtCx0LvQsNGB0YLRjCwg0JrRgNCw0YHQvdC-0LfQvdCw0LzQtdC90YHQuiIKDYMrFEIV62ZeQg%2C%2C&source=serp_navig&z=13" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe></div>
+
+    <iframe class="widget" src="../rolex-shop/html/index.html" frameborder="0"></iframe>
+
+    <hr>
+
+    <form action="" method="post" class="form">
+        <fieldset>
+            <legend>Кекс</legend>
+
+            <label for="name">Ваше имя: </label>
+            <input type="text" name="name" id="name">
+
+            <label>
+                <span>Телефон: </span>
+                <input type="tel" name="tel">
+            </label>
+
+            <label for="login">Логин: </label>
+            <input type="text" name="login" id="login">
+
+            <label for="password">Пароль: </label>
+            <input type="password" name="password" id="password">
+
+            <button type="submit">Отправить</button>
+        </fieldset>
+
+        <fieldset>
+            <legend>Пирог</legend>
+        </fieldset>
+    </form>
+
+</body>
+</html>
