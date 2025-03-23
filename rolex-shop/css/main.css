@@ -646,3 +646,48 @@ button {
         background-color: var(--button-color-alt);
     }
 }
+
+.newsletter-container {
+    background-color: var(--first-color);
+    padding: 4.5rem;
+    display: flex;
+    align-items: center;
+    column-gap: 2rem;
+}
+
+.newsletter-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5rem;
+}
+
+.newsletter-title {
+    font-size: 2.25rem;
+    font-weight: var(--fw-medium);
+    text-transform: capitalize;
+}
+
+/* .newsletter-description {} */
+
+.newsletter-form {
+    width: 100%;
+    display: flex;
+}
+
+.form-email {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 1.25rem 1rem;
+}
+
+.form-button {
+    background-color: var(--button-color);
+    color: #fff;
+    padding: 1.25rem 2rem;
+
+    &:hover {
+        background-color: var(--button-color-alt);
+    }
+}
