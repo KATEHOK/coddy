@@ -16,6 +16,7 @@
     --color-light: #fcfcfc;
     --color-light-alt: #fff;
     --color-bright: #ffb566;
+    --color-warn: #ff0000;
 
     --link-color: var(--color-grey);
     --link-color-alt: var(--color-grey-alt);
@@ -42,6 +43,7 @@ html {
 a, input, textarea, select, button {
     font: inherit;
     color: inherit;
+    outline: none;
 }
 
 ul {
@@ -70,10 +72,23 @@ h1, h2, h3, h4, h5, h6 {
     transition-duration: var(--transition-duration);
     color: var(--link-color);
     text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    &:hover {
+    &:hover, &:focus {
         color: var(--link-color-alt);
-        text-decoration: underline;
+
+        &::after {
+            width: 100%;
+        }
+    }
+
+    &::after {
+        content: "";
+        border-top: 1px solid currentColor;
+        width: 0;
+        transition-duration: var(--transition-duration);
     }
 }
 
@@ -88,7 +103,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: var(--btn-color-alt);
     color: var(--btn-color);
 
-    &:hover {
+&:hover, &:focus {
         background-color: var(--btn-color);
         color: var(--btn-color-alt);
     }
@@ -173,6 +188,38 @@ h1, h2, h3, h4, h5, h6 {
 .form-field {
     display: grid;
     grid-template-columns: 1fr 2fr;
+    align-items: center;
+}
+
+.input {
+    --padding: .4em;
+    --shadow-color: transparent;
+    padding: calc(var(--padding) / 2) var(--padding);
+    border-radius: calc(var(--padding) * 1.5);
+    border: 1px solid var(--color-grey-alt);
+    transition-duration: var(--transition-duration);
+    box-shadow: 0 0 var(--padding) var(--shadow-color);
+    background-color: var(--color-light);
+
+    &:hover {
+        --shadow-color: var(--color-grey-alt);
+        border-color: transparent;
+    }
+
+    &:focus {
+        --shadow-color: var(--color-dark-alt);
+        border-color: transparent;
+    }
+
+    &::placeholder {
+        color: var(--color-grey-alt);
+    }
+}
+
+.label-required::after {
+    content: "*";
+    color: var(--color-warn);
+    font-size: 1.2em;
 }
 
 .form-controllers {
@@ -185,6 +232,10 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
+.form-addition-link {
+    display: inline-flex;
+}
+
 /* FOOTER */
 
 .footer {
@@ -195,4 +246,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .footer-info {
     font-size: .75rem;
+}
+
+.footer-link {
+    display: inline-flex;
 }
