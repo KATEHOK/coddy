@@ -1,4 +1,4 @@
-const getElment = (selector) => {
+const getElement = (selector) => {
     return document.querySelector(selector)
 }
 
@@ -6,7 +6,9 @@ const getElment = (selector) => {
 //     element: DOMElement
 // }
 
-const Field = {
+const field = {
+    _defaultSize: 3,
+    containerEl: getElement('#tic-tac-toe'),
     size: 3,
     cells: [[], [], [],],
 
@@ -19,13 +21,15 @@ const Field = {
     reset() {
         console.log('Reset')
     },
+    updateDOM() {
+        console.log('Update')
+    },
 }
 
-const Game = {
-    containerEl: getElment('#tic-tac-toe'),
-    buttonEl: getElment('#tic-tac-toe__btn'),
+const game = {
+    buttonEl: getElement('#tic-tac-toe__btn'),
     isActive: false,
-    field: Field,
+    field: field,
     activePlayer: 0,
     players: [
         {
@@ -53,11 +57,11 @@ const Game = {
     },
 }
 
-console.log(Game)
-Game.switchPlayer()
-console.log(Game)
-Game.switchPlayer()
-console.log(Game)
+console.log(game)
+game.switchPlayer()
+console.log(game)
+game.switchPlayer()
+console.log(game)
 
 // echo choto
 
