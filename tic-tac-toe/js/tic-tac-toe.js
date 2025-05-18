@@ -5,6 +5,7 @@ const getElement = (selector) => {
 class Cell {
     element = null
     className = 'tic-tac-toe__cell'
+    winClassName = 'tic-tac-toe__cell--win'
     activeClassName = 'tic-tac-toe__cell--empty'
     handler = null
     handlerContext = null
@@ -16,7 +17,7 @@ class Cell {
     }
 
     _click() {
-        console.log(this)
+        console.log('Click')
         if (this.handler === null) return
         if (this.handlerContext === null) {
             this.handler(...this.handlerArgs)
@@ -29,7 +30,6 @@ class Cell {
     }
 
     setHandler(newHandler, context, ...args) {
-        // console.log(context)
         if (typeof newHandler !== 'function') return
         this.handler = newHandler
         if (typeof context === 'object') this.handlerContext = context
@@ -52,6 +52,7 @@ class Cell {
     }
 
     deactivate() {
+        // console.log('Cell -> deactivate()')
         if (this.element === null) return
         if (!this.element.classList.contains(this.activeClassName)) return
         // удаляем слушатель события "клик"
@@ -77,6 +78,18 @@ class Cell {
             container.append(this.element)
         }
     }
+
+    unpublish() {
+        if (this.element instanceof HTMLElement) {
+            this.element.remove()
+        }
+    }
+
+    // дз
+    addWinClass() {}
+
+    // дз
+    removeWinClass() {}
 }
 
 // const cell = new Cell()
@@ -87,30 +100,56 @@ class Cell {
 // cell.activate()
 
 // field -> Field
-const field = {
-    containerEl: getElement('#tic-tac-toe'),
-    cells: [[], [], [],],
+class Field {
+    containerEl = getElement('#tic-tac-toe__field')
+    cells = [[], [], [],]
 
-    setListeners() {
-        console.log('Listeners')
-    },
-    fill() {
-        console.log('Fill')
-    },
-    reset() {
-        console.log('Reset')
-    },
-    updateDOM() {
-        console.log('Update')
-    },
+    constructor(handler, context, ...args) {
+        this.cells.forEach((line) => {
+            for (let i = 0; i < 3; ++i) {
+                const cell = new Cell()
+                const newArgs = [cell, ...args]
+                cell.create()
+                cell.publish(this.containerEl)
+                cell.setHandler(handler, context, ...newArgs)
+                cell.activate()
+                line.push(cell)
+            }
+        })
+    }
+
+    get size() {
+        return this.cells.length
+    }
+
+    deactivate() {
+        // console.log('Field -> deactivate()')
+        this.cells.forEach((line) => {
+            // console.log('For each line, line:', line)
+            line.forEach((cell) => { cell.deactivate() })
+        })
+    }
+
+    clear() {
+        this.cells.forEach((line) => {
+            line.forEach((cell) => {
+                cell.free()
+                cell.removeWinClass()
+                cell.unpublish()
+            })
+        })
+    }
 }
 
-const game = {
-    buttonEl: getElement('#tic-tac-toe__btn'),
-    isActive: false,
-    field: field,
-    activePlayer: 0,
-    players: [
+// const field = new Field(console.log, null, 'Hello, im cell')
+
+class Game {
+    buttonEl = getElement('#tic-tac-toe__btn')
+    isActive = false
+    field = null
+    activePlayerId = -1
+    winCombinations = []
+    players = [
         {// cross
             name: 'Cross',
             filled: [],
@@ -121,22 +160,90 @@ const game = {
             filled: [],
             img: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>',
         }
-    ],
+    ]
+
+    constructor() {
+        this.startGame()
+    }
+
+    get activePlayer() {
+        return this.activePlayerId !== -1
+            ? this.players[this.activePlayerId]
+            : null
+    }
 
     startGame() {
         console.log("Start")
+        if (this.field instanceof Field) this.field.clear() 
+        this.field = new Field(this.turn, this)
+        this.switchPlayer()
+        this.updateWinCombinations()
         this.isActive = true
-    },
+    }
     stopGame() {
         console.log("Stop")
+        this.field.deactivate()
         this.isActive = false
-    },
+    }
     switchPlayer() {
         console.log("Player switched")
-        this.activePlayer = (this.activePlayer + 1) % 2
-    },
-    turn(cellEl) {
-        console.log("Player goes")
-    },
+        this.activePlayerId = (this.activePlayerId + 1) % this.players.length
+    }
+    updateWinCombinations() {
+        this.winCombinations = [[], [], [], [], []]
+        // заполняем колонки и диагонали
+        this.field.cells.forEach((line, lineId) => {
+            this.winCombinations[0].push(line[0])
+            this.winCombinations[1].push(line[1])
+            this.winCombinations[2].push(line[2])
+            this.winCombinations[3].push(line[lineId])
+            this.winCombinations[4].push(line[line.length - lineId - 1])
+        })
+        // заполняем строки
+        this.winCombinations = [
+            ...this.winCombinations,
+            ...this.field.cells
+        ]
+    }
+    getWinCombination() {
+        if (this.activePlayer.filled.length < this.field.size) return false
+        let combo = null
+        console.log(this.winCombinations)
+        this.winCombinations.forEach((combination) => {
+            let matches = 0
+            combination.forEach((cell) => {
+                if (this.activePlayer.filled.includes(cell)) ++matches
+                else return
+            })
+            if (matches === combination.length) {
+                combo = combination
+                return
+            } 
+        })
+        return combo
+    }
+    // дз: добавляет победные классы клеткам комбинации
+    markWinCombo(winCombo) {}
+    turn(cell) {
+        if (!this.isActive) return
+
+        cell.fill(this.activePlayer.img)
+        this.activePlayer.filled.push(cell)
+        // console.log(this.activePlayer.filled)
+
+        const winCombo = this.getWinCombination()
+        if (winCombo instanceof Array) {
+            this.markWinCombo()
+            this.stopGame()
+            setTimeout(() => {
+                alert(`${this.activePlayer.name} is winner!`)
+            }, 200)
+            return
+        }
+
+        this.switchPlayer()
+    }
 }
+
+const game = new Game()
 
