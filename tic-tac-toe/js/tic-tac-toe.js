@@ -2,22 +2,99 @@ const getElement = (selector) => {
     return document.querySelector(selector)
 }
 
-class Cell {
+const isString = (value) => {
+    return typeof value === 'string'
+}
+
+class HTMLObject {
     element = null
-    className = 'tic-tac-toe__cell'
-    winClassName = 'tic-tac-toe__cell--win'
-    activeClassName = 'tic-tac-toe__cell--empty'
+
+    constructor(selector = null) {
+        if (selector !== null) this.element = getElement(selector)
+    }
+
+    get innerText() {
+        return this.hasElement() ? this.element.innerText : null
+    }
+
+    set innerText(newInnerText) {
+        if (this.hasElement()) {
+            this.element.innerText = isString(newInnerText) ? newInnerText : ''
+        }
+    }
+
+    hasElement() {
+        return this.element instanceof HTMLElement
+    }
+
+    addClass(newClassName) {
+        if (this.hasElement() &&
+            isString(newClassName) &&
+            !this.element.classList.contains(newClassName)
+        ) {
+            this.element.classList.add(newClassName)
+        }
+    }
+
+    removeClass(targetClassName) {
+        if (this.hasElement() &&
+            isString(targetClassName) &&
+            this.element.classList.contains(targetClassName)
+        ) {
+            this.element.classList.remove(targetClassName)
+        }
+    }
+
+    publish(container) {
+        if (!this.hasElement()) return
+        if (container instanceof HTMLElement) {
+            container.append(this.element)
+        }
+    }
+
+    unpublish() {
+        if (this.hasElement()) {
+            this.element.remove()
+        }
+    }
+}
+
+class InfoLabel extends HTMLObject {
+    
+    constructor(selector = null) {
+        super(selector)
+    }
+
+    setWinner(winnerName) {
+        this.innerText = `${winnerName} is winner!`
+    }
+
+    setTurn(activePlayerName) {
+        this.innerText = `${activePlayerName}'s turn`
+    }
+
+    setDraw() {
+        this.innerText = `Draw!`
+    }
+
+    setNotStarted() {
+        this.innerText = `Not started`
+    }
+}
+
+class Clickable extends HTMLObject {
+    activeClassName = null
     handler = null
     handlerContext = null
     handlerArgs = []
     click = null
 
-    constructor() {
+    constructor(selector = null) {
+        super(selector)
         this.click = this._click.bind(this)
     }
 
     _click() {
-        console.log('Click')
         if (this.handler === null) return
         if (this.handlerContext === null) {
             this.handler(...this.handlerArgs)
@@ -26,7 +103,6 @@ class Cell {
             this.handlerContext,
             ...this.handlerArgs
         )
-        this.deactivate()
     }
 
     setHandler(newHandler, context, ...args) {
@@ -37,28 +113,66 @@ class Cell {
         this.handlerArgs = args
     }
 
-    create() {
-        this.element = document.createElement('div')
-        this.element.classList.add(this.className)
-    }
-
     activate() {
         if (this.element === null) return
-        if (this.element.classList.contains(this.activeClassName)) return
+        this.addClass(this.activeClassName)
         // добавляем слушатель события "клик"
         this.element.addEventListener('click', this.click)
-        // добавляем класс
-        this.element.classList.add(this.activeClassName)
     }
 
     deactivate() {
-        // console.log('Cell -> deactivate()')
         if (this.element === null) return
-        if (!this.element.classList.contains(this.activeClassName)) return
+        this.removeClass(this.activeClassName)
         // удаляем слушатель события "клик"
         this.element.removeEventListener('click', this.click)
-        // удаляем класс
-        this.element.classList.remove(this.activeClassName)
+    }
+}
+
+class Button extends Clickable {
+    startClassName = 'btn--green'
+    stopClassName = 'btn--red'
+
+    constructor(selector = null) {
+        super(selector)
+    }
+
+    get state() {
+        let state = this.innerText
+        return isString(state) ? state.toLowerCase() : null
+    }
+
+    setStart() {
+        if (!this.hasElement()) return
+        this.element.innerText = 'Start'
+        this.removeClass(this.stopClassName)
+        this.addClass(this.startClassName)
+    }
+
+    setStop() {
+        if (!this.hasElement()) return
+        this.element.innerText = 'Stop'
+        this.removeClass(this.startClassName)
+        this.addClass(this.stopClassName)
+    }
+}
+
+class Cell extends Clickable {
+    className = 'tic-tac-toe__cell'
+    winClassName = 'tic-tac-toe__cell--win'
+
+    constructor() {
+        super()
+        this.activeClassName = 'tic-tac-toe__cell--empty'
+    }
+
+    _click() {
+        super._click()
+        this.deactivate()
+    }
+
+    create() {
+        this.element = document.createElement('div')
+        this.element.classList.add(this.className)
     }
 
     fill(content) {
@@ -72,47 +186,32 @@ class Cell {
         this.element.innerHTML = ''
     }
 
-    publish(container) {
-        if (this.element === null) return
-        if (container instanceof HTMLElement) {
-            container.append(this.element)
-        }
+    addWinClass() {
+        this.addClass(this.winClassName)
     }
 
-    unpublish() {
-        if (this.element instanceof HTMLElement) {
-            this.element.remove()
-        }
+    removeWinClass() {
+        this.removeClass(this.winClassName)
     }
-
-    // дз
-    addWinClass() {}
-
-    // дз
-    removeWinClass() {}
 }
 
-// const cell = new Cell()
-// cell.create()
-// cell.publish(getElement('#tic-tac-toe__field'))
-// cell.setHandler(cell.fill, cell, '<h1>Hello</h1>')
-// console.log(cell.handler)
-// cell.activate()
-
-// field -> Field
-class Field {
-    containerEl = getElement('#tic-tac-toe__field')
+class Field extends HTMLObject {
     cells = [[], [], [],]
 
-    constructor(handler, context, ...args) {
+    constructor(selector = null) {
+        super(selector)
+    }
+
+    init(handler, context, ...args) {
+        this.deactivate()
+        this.clear()
         this.cells.forEach((line) => {
             for (let i = 0; i < 3; ++i) {
                 const cell = new Cell()
                 const newArgs = [cell, ...args]
                 cell.create()
-                cell.publish(this.containerEl)
+                cell.publish(this.element)
                 cell.setHandler(handler, context, ...newArgs)
-                cell.activate()
                 line.push(cell)
             }
         })
@@ -122,10 +221,14 @@ class Field {
         return this.cells.length
     }
 
-    deactivate() {
-        // console.log('Field -> deactivate()')
+    activate() {
         this.cells.forEach((line) => {
-            // console.log('For each line, line:', line)
+            line.forEach((cell) => { cell.activate() })
+        })
+    }
+
+    deactivate() {
+        this.cells.forEach((line) => {
             line.forEach((cell) => { cell.deactivate() })
         })
     }
@@ -138,33 +241,32 @@ class Field {
                 cell.unpublish()
             })
         })
+        this.cells = [[], [], []]
     }
 }
 
-// const field = new Field(console.log, null, 'Hello, im cell')
-
 class Game {
-    buttonEl = getElement('#tic-tac-toe__btn')
+    button = new Button('#tic-tac-toe__btn')
+    infoLabel = new InfoLabel('#tic-tac-toe__info')
+    field = new Field('#tic-tac-toe__field')
     isActive = false
-    field = null
+    isInited = false
     activePlayerId = -1
     winCombinations = []
     players = [
-        {// cross
+        {
             name: 'Cross',
             filled: [],
             img: '<svg viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>cross</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-467.000000, -1039.000000)" fill="#000000"> <path d="M489.396,1061.4 C488.614,1062.18 487.347,1062.18 486.564,1061.4 L479.484,1054.32 L472.404,1061.4 C471.622,1062.18 470.354,1062.18 469.572,1061.4 C468.79,1060.61 468.79,1059.35 469.572,1058.56 L476.652,1051.48 L469.572,1044.4 C468.79,1043.62 468.79,1042.35 469.572,1041.57 C470.354,1040.79 471.622,1040.79 472.404,1041.57 L479.484,1048.65 L486.564,1041.57 C487.347,1040.79 488.614,1040.79 489.396,1041.57 C490.179,1042.35 490.179,1043.62 489.396,1044.4 L482.316,1051.48 L489.396,1058.56 C490.179,1059.35 490.179,1060.61 489.396,1061.4 L489.396,1061.4 Z M485.148,1051.48 L490.813,1045.82 C492.376,1044.26 492.376,1041.72 490.813,1040.16 C489.248,1038.59 486.712,1038.59 485.148,1040.16 L479.484,1045.82 L473.82,1040.16 C472.257,1038.59 469.721,1038.59 468.156,1040.16 C466.593,1041.72 466.593,1044.26 468.156,1045.82 L473.82,1051.48 L468.156,1057.15 C466.593,1058.71 466.593,1061.25 468.156,1062.81 C469.721,1064.38 472.257,1064.38 473.82,1062.81 L479.484,1057.15 L485.148,1062.81 C486.712,1064.38 489.248,1064.38 490.813,1062.81 C492.376,1061.25 492.376,1058.71 490.813,1057.15 L485.148,1051.48 L485.148,1051.48 Z" id="cross" sketch:type="MSShapeGroup"> </path> </g> </g> </g></svg>',
         },
-        {// zero
+        {
             name: 'Zero',
             filled: [],
             img: '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>',
         }
     ]
 
-    constructor() {
-        this.startGame()
-    }
+    constructor() {}
 
     get activePlayer() {
         return this.activePlayerId !== -1
@@ -172,22 +274,38 @@ class Game {
             : null
     }
 
-    startGame() {
-        console.log("Start")
-        if (this.field instanceof Field) this.field.clear() 
-        this.field = new Field(this.turn, this)
-        this.switchPlayer()
+    init() {
+        this.field.init(this.turn, this)
         this.updateWinCombinations()
-        this.isActive = true
-    }
-    stopGame() {
-        console.log("Stop")
-        this.field.deactivate()
+        this.clearPlayers()
+        this.infoLabel.setNotStarted()
+        this.button.setHandler(this.buttonClick, this)
+        this.button.activate()
+        this.activePlayerId = -1
+        this.isInited = true
         this.isActive = false
     }
+    start() {
+        if (this.isActive) return
+        if (!this.isInited) this.init()
+        this.switchPlayer()
+        this.field.activate()
+        this.button.setStop()
+        this.isInited = false
+        this.isActive = true
+    }
+    stop() {
+        if (!this.isActive) return
+        this.field.deactivate()
+        this.button.setStart()
+        this.isActive = false
+    }
+    clearPlayers() {
+        this.players.forEach((player) => { player.filled = [] })
+    }
     switchPlayer() {
-        console.log("Player switched")
         this.activePlayerId = (this.activePlayerId + 1) % this.players.length
+        this.infoLabel.setTurn(this.activePlayer.name)
     }
     updateWinCombinations() {
         this.winCombinations = [[], [], [], [], []]
@@ -208,7 +326,6 @@ class Game {
     getWinCombination() {
         if (this.activePlayer.filled.length < this.field.size) return false
         let combo = null
-        console.log(this.winCombinations)
         this.winCombinations.forEach((combination) => {
             let matches = 0
             combination.forEach((cell) => {
@@ -222,28 +339,52 @@ class Game {
         })
         return combo
     }
-    // дз: добавляет победные классы клеткам комбинации
-    markWinCombo(winCombo) {}
+    // добавляет победные классы клеткам комбинации
+    markWinCombo(winCombo) {
+        if (winCombo instanceof Array) {
+            winCombo.forEach((cell) => {
+                if (cell instanceof Cell) cell.addWinClass()
+            })
+        }
+    }
     turn(cell) {
         if (!this.isActive) return
 
         cell.fill(this.activePlayer.img)
         this.activePlayer.filled.push(cell)
-        // console.log(this.activePlayer.filled)
 
         const winCombo = this.getWinCombination()
         if (winCombo instanceof Array) {
-            this.markWinCombo()
-            this.stopGame()
-            setTimeout(() => {
-                alert(`${this.activePlayer.name} is winner!`)
-            }, 200)
+            this.markWinCombo(winCombo)
+            this.stop()
+            this.infoLabel.setWinner(this.activePlayer.name)
+            return
+        }
+
+        if (this.activePlayer.filled.length === 5) {
+            this.stop()
+            this.infoLabel.setDraw()
             return
         }
 
         this.switchPlayer()
     }
+    buttonClick() {
+        switch (this.button.state) {
+            case 'stop':
+                this.button.setStart()
+                this.infoLabel.setNotStarted()
+                this.stop()
+                break;
+            case 'start':
+                this.button.setStop()
+                this.start()
+                break;
+            default:
+                console.warn(`Unexpected button state: ${this.button.state}`)
+        }
+    }
 }
 
 const game = new Game()
-
+game.init()
