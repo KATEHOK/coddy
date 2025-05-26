@@ -31,5 +31,59 @@
         </div>
         <button type="button" id="btn-collect">Сформировать</button>
     </main>
+
+    <script>
+        const mainEl = document.querySelector('main')
+        const theoryTaskNumberEl = document.querySelector('#theory-task-number')
+        const practiceTaskSectionEl = document.querySelector('#practice-task-section')
+        const practiceTaskNumberEl = document.querySelector('#practice-task-number')
+        const collectButtonEl = document.querySelector('#btn-collect')
+        const theoryTasksCount = 20
+        const practiceTasksCount = 5
+        const practiceTaskSections = [
+            'HTML',
+            'CSS',
+            'JavaScript',
+        ]
+        const setupClickListener = () => {
+            collectButtonEl.addEventListener(
+                'click',
+                () => {
+                    let theoryTaskNumber = parseInt(localStorage.getItem('theoryTaskNumber'))
+                    let practiceTaskSectionId = parseInt(localStorage.getItem('practiceTaskSectionId'))
+                    let practiceTaskNumber = parseInt(localStorage.getItem('practiceTaskNumber'))
+
+                    if (
+                        isNaN(theoryTaskNumber) ||
+                        isNaN(practiceTaskSectionId) ||
+                        isNaN(practiceTaskNumber)
+                    ) {
+                        theoryTaskNumber = Math.ceil(Math.random() * theoryTasksCount)
+                        practiceTaskSectionId = Math.floor(Math.random() * practiceTaskSections.length)
+                        practiceTaskNumber = Math.ceil(Math.random() * practiceTasksCount)
+
+                        localStorage.setItem('theoryTaskNumber', theoryTaskNumber)
+                        localStorage.setItem('practiceTaskSectionId', practiceTaskSectionId)
+                        localStorage.setItem('practiceTaskNumber', practiceTaskNumber)
+                    } else {
+                        alert('Читерим? Не выйдет)')
+                    }
+
+                    theoryTaskNumberEl.innerText = theoryTaskNumber
+                    practiceTaskSectionEl.innerText = practiceTaskSections[practiceTaskSectionId]
+                    practiceTaskNumberEl.innerText = practiceTaskNumber
+                    
+                    collectButtonEl.remove()
+                },
+                { once: true }
+            )
+        }
+
+        if (confirm('Вы осознаете, что рандомайзер запускается лишь однократно?')) setupClickListener()
+        else {
+            mainEl.remove()
+            alert('Нет? Ну, тогда пока...')
+        }
+    </script>
 </body>
 </html>
